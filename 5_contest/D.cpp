@@ -1,61 +1,31 @@
 #include <iostream>
 #include <vector>
-using namespace std;
-
-void mergeSort(vector<int>& a, vector<int>& b, int l, int r) {
-    if (r - l <= 1) {
-        return;
-    }
-
-    int m = l + (r - l) / 2;
-    mergeSort(a, b, l, m);
-    mergeSort(a, b, m, r);
-
-    int i = l;
-    int j = m;
-    int p = l;
-
-    while (i < m && j < r) {
-        if (a[i] >= a[j]) {
-            b[p] = a[i];
-            i++;
-        } else {
-            b[p] = a[j];
-            j++;
-        }
-        p++;
-    }
-
-    while (i < m) {
-        b[p] = a[i];
-        i++;
-        p++;
-    }
-
-    while (j < r) {
-        b[p] = a[j];
-        j++;
-        p++;
-    }
-
-    for (int t = l; t < r; t++) {
-        a[t] = b[t];
-    }
-}
+#include <utility>
 
 int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
     int n;
-    int k;
-    cin >> n >> k;
+    std::cin >> n;
 
-    vector<int> a(n);
-    vector<int> b(n);
+    std::vector<int> a(n);
 
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
+    for (int i = 0; i < n; ++i) {
+        a[i] = i + 1;
     }
 
-    mergeSort(a, b, 0, n);
+    for (int i = 2; i < n; ++i) {
+        std::swap(a[i], a[i / 2]);
+    }
 
-    cout << a[k - 1] << '\n'; 
+    for (int i = 0; i < n; ++i) {
+        if (i > 0) {
+            std::cout << ' ';
+        }
+        std::cout << a[i];
+    }
+
+    std::cout << '\n';
+    return 0;
 }
